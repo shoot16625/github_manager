@@ -18,5 +18,9 @@ init: ## install libraries  ## make init
 	brew install gh
 
 .PHONY: auth
-login:
+login: ## login github ## make login
 	gh auth login
+
+.PHONY: exec_query
+exec_query: ## exec shellscript ## make exec_query REPO_NAME=repository_name
+	sh repository/$(REPO_NAME)/main.sh
