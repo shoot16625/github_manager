@@ -7,6 +7,8 @@ on:
 jobs:
   assign:
     name: Assign author to PR
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Assign author to PR
