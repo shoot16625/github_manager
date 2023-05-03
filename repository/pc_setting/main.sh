@@ -30,3 +30,29 @@ mutation($repositoryId:ID!,$branch:String!) {
 	}) { clientMutationId }
 }
 ' -f repositoryId="$repositoryId" -f branch="$DEFAULT_BRANCH")
+
+# update a branch protection rule
+branchProtectionRuleId=$(gh api graphql -f query='
+{
+	repository(owner:"'$OWNER_NAME'", name:"'$REPO_NAME'"){
+		branchProtectionRules(first:100){
+			nodes{
+				id,
+				pattern
+			}
+		}
+	}
+}
+' -q ' .data.repository.branchProtectionRules.nodes.[] | select(.pattern=="'$DEFAULT_BRANCH'") | .id ')
+
+_=$(gh api graphql -f query='
+mutation($branchProtectionRuleId:ID!) {
+	updateBranchProtectionRule(input: {
+		branchProtectionRuleId: $branchProtectionRuleId
+		requiresApprovingReviews: true
+		requiredApprovingReviewCount: 1
+		requiresCodeOwnerReviews: true
+		isAdminEnforced: false
+	}) { clientMutationId }
+}
+' -f branchProtectionRuleId="$branchProtectionRuleId")

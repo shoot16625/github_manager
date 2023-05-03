@@ -52,6 +52,7 @@ mutation($branchProtectionRuleId:ID!) {
 		requiresApprovingReviews: true
 		requiredApprovingReviewCount: 1
 		requiresCodeOwnerReviews: true
+		isAdminEnforced: false
 	}) { clientMutationId }
 }
 ' -f branchProtectionRuleId="$branchProtectionRuleId")
