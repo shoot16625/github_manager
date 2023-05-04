@@ -2,3 +2,5 @@ github_manager:
   - repository/github_manager/**/*
 pc_setting:
   - repository/pc_setting/**/*
+s3_search:
+  - repository/s3_search/**/*
