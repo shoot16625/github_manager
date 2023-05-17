@@ -7,7 +7,7 @@ readonly REPO_NAME=github_manager
 readonly LICENSE=MIT
 readonly DEFAULT_BRANCH=main
 readonly DESCRIPTION="Github を管理するレポジトリ"
-readonly TOPICS="github"
+readonly TOPICS="github,cli,gh"
 
 # create repo
 gh repo create $REPO_NAME --add-readme --public --license $LICENSE
