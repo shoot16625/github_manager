@@ -6,8 +6,8 @@ readonly OWNER_NAME=shoot16625
 readonly REPO_NAME=s3_search
 readonly LICENSE=MIT
 readonly DEFAULT_BRANCH=main
-readonly DESCRIPTION="Auto completion of aws cli (S3)"
-readonly TOPICS="awscli,s3"
+readonly DESCRIPTION="Fuzzy search cli for AWS S3 objects"
+readonly TOPICS="aws,awscli,s3,completion,fuzzy-search,rust"
 
 # create repo
 gh repo create $REPO_NAME --add-readme --public --license $LICENSE
