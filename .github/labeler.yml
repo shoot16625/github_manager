@@ -1,5 +1,7 @@
 github_manager:
   - repository/github_manager/**/*
+homebrew-tap:
+  - repository/homebrew-tap/**/*
 pc_setting:
   - repository/pc_setting/**/*
 s3_search:
