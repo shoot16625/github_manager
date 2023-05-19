@@ -24,3 +24,10 @@ login: ## login github ## make login
 .PHONY: exec_query
 exec_query: ## exec shellscript ## make exec_query REPO_NAME=repository_name
 	sh repository/$(REPO_NAME)/main.sh
+
+.PHONY: exec_all_queries
+exec_all_queries: ## exec all shellscript ## make exec_queries
+	@for repo in $$(ls repository); do \
+		make exec_query REPO_NAME=$$repo; \
+		echo "\n"; \
+	done
