@@ -2,6 +2,9 @@
 
 set -u
 
+readonly DEV_NULL=/dev/null
+readonly API_VERSION="2022-11-28"
+
 readonly OWNER_NAME=shoot16625
 readonly REPO_NAME=s3_search
 readonly LICENSE=MIT
@@ -55,4 +58,12 @@ mutation($branchProtectionRuleId:ID!) {
 		isAdminEnforced: false
 	}) { clientMutationId }
 }
-' -f branchProtectionRuleId="$branchProtectionRuleId")
+' -f branchProtectionRuleId="$branchProtectionRuleId" >$DEV_NULL
+
+# update actions permissions
+gh api \
+	--method PUT \
+	-H "Accept: application/vnd.github+json" \
+	-H "X-GitHub-Api-Version: $API_VERSION" \
+	/repos/$OWNER_NAME/$REPO_NAME/actions/permissions/workflow \
+	-f default_workflow_permissions='write' >$DEV_NULL
