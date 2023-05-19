@@ -27,5 +27,5 @@ exec_query: ## exec shellscript ## make exec_query REPO_NAME=repository_name
 exec_all_queries: ## exec all shellscript ## make exec_queries
 	@for repo in $$(ls repository); do \
 		make exec_query REPO_NAME=$$repo; \
-		echo "\n"; \
+		echo ""; \
 	done
