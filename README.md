@@ -4,10 +4,21 @@
 
 ## Command
 
+### Setup
+
 ```zsh
 make init
 make login
+```
+
+### Exec
+
+```zsh
+# レポジトリ操作
 make exec_query REPO_NAME=repository_name
+
+# 全てのレポジトリ操作
+make exec_all_queries
 ```
 
 ## Reference
