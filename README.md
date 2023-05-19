@@ -2,6 +2,8 @@
 
 レポジトリの作成やブランチ保護などの設定をコマンドで管理する。
 
+![Image](/image/t-rec.gif)
+
 ## Command
 
 ### Setup
