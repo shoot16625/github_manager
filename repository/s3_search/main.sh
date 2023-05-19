@@ -13,7 +13,10 @@ readonly DESCRIPTION="Fuzzy search cli for AWS S3 objects"
 readonly TOPICS="aws,awscli,s3,completion,fuzzy-search,rust"
 
 # create repo
-gh repo create $REPO_NAME --add-readme --public --license $LICENSE
+err_msg=$(gh repo view $OWNER_NAME/$REPO_NAME 2>&1 >/dev/null)
+if [ -n "$err_msg" ]; then
+	gh repo create $REPO_NAME --add-readme --public --license $LICENSE
+fi
 
 # update repo
 gh repo edit $OWNER_NAME/$REPO_NAME --add-topic $TOPICS --default-branch $DEFAULT_BRANCH --delete-branch-on-merge --description "$DESCRIPTION"
@@ -25,14 +28,14 @@ repositoryId=$(gh api graphql -f query='
 }
 ' -q .data.repository.id)
 
-_=$(gh api graphql -f query='
+gh api graphql -f query='
 mutation($repositoryId:ID!,$branch:String!) {
 	createBranchProtectionRule(input: {
 		repositoryId: $repositoryId
 		pattern: $branch
 	}) { clientMutationId }
 }
-' -f repositoryId="$repositoryId" -f branch="$DEFAULT_BRANCH")
+' -f repositoryId="$repositoryId" -f branch="$DEFAULT_BRANCH" >$DEV_NULL
 
 # update a branch protection rule
 branchProtectionRuleId=$(gh api graphql -f query='
@@ -48,7 +51,7 @@ branchProtectionRuleId=$(gh api graphql -f query='
 }
 ' -q ' .data.repository.branchProtectionRules.nodes.[] | select(.pattern=="'$DEFAULT_BRANCH'") | .id ')
 
-_=$(gh api graphql -f query='
+gh api graphql -f query='
 mutation($branchProtectionRuleId:ID!) {
 	updateBranchProtectionRule(input: {
 		branchProtectionRuleId: $branchProtectionRuleId
